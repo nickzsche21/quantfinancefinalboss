@@ -7,11 +7,11 @@ import { LabPanel } from "./LabPanel";
 function BrandMark({ size = 36 }: { size?: number }) {
   return (
     <svg className="brand-logo" width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
-      <rect width="64" height="64" rx="14" fill="currentColor" className="brand-logo-bg" />
-      <circle cx="32" cy="32" r="22" fill="none" stroke="var(--gold-bright)" strokeWidth="1.5" opacity="0.95" />
-      <circle cx="32" cy="32" r="14" fill="none" stroke="var(--wine-hot)" strokeWidth="2.2" />
-      <path d="M20 32h24" stroke="var(--wine-hot)" strokeWidth="2.6" strokeLinecap="square" />
-      <path d="M32 17v5.5M32 41.5V47" stroke="var(--gold-bright)" strokeWidth="1.5" strokeLinecap="square" opacity="0.85" />
+      <rect width="64" height="64" rx="14" fill="#03040A" />
+      <circle cx="32" cy="32" r="22" fill="none" stroke="#00F5A0" strokeWidth="1.5" opacity="0.95" />
+      <circle cx="32" cy="32" r="14" fill="none" stroke="#FF3D71" strokeWidth="2.2" />
+      <path d="M20 32h24" stroke="#FF3D71" strokeWidth="2.6" strokeLinecap="square" />
+      <path d="M32 17v5.5M32 41.5V47" stroke="#00F5A0" strokeWidth="1.5" strokeLinecap="square" opacity="0.9" />
     </svg>
   );
 }

@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
+import { JetBrains_Mono, Space_Grotesk, Syne } from "next/font/google";
 import "./globals.css";
 
-const display = Bodoni_Moda({
+const display = Syne({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const body = Source_Serif_4({
+const body = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const mono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-mono",
   display: "swap",
 });
