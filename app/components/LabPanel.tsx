@@ -71,7 +71,7 @@ export function LabPanel() {
     <section className="lab-panel" aria-labelledby="lab-heading">
       <div className="section-heading lab-heading">
         <div><span className="eyebrow">CONTROLLED NUMERICAL LAB / 01</span><h2 id="lab-heading">Touch the model.<br /><em>Break the assumption.</em></h2></div>
-        <p>Twelve deterministic labs. Change any input and every result recalculates instantly on your device.</p>
+        <p>Twelve deterministic labs—pricing, paths, vol, filtering, portfolio, risk. Change any input; results recalculate on your device. Reproducible seeds. No server required.</p>
       </div>
 
       <div className="lab-workbench">

@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import { Fraunces, IBM_Plex_Mono, Newsreader } from "next/font/google";
+import { Bodoni_Moda, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 
-const display = Fraunces({
+const display = Bodoni_Moda({
   subsets: ["latin"],
   variable: "--font-display",
-  axes: ["SOFT", "WONK", "opsz"],
   display: "swap",
+  style: ["normal", "italic"],
 });
 
-const body = Newsreader({
+const body = Source_Serif_4({
   subsets: ["latin"],
   variable: "--font-body",
-  style: ["normal", "italic"],
   display: "swap",
+  style: ["normal", "italic"],
 });
 
-const mono = IBM_Plex_Mono({
+const mono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-mono",
@@ -25,17 +25,22 @@ const mono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://quantfinancefinalboss.vercel.app"),
-  title: "No Free Alpha — The Independent Quant Review",
+  title: "No Free Alpha — Free Open-Source Quant Syllabus",
   description:
-    "An editorial, interactive guide to quantitative finance: rigorous lessons, live numerical labs, model dossiers, research workflows and failure autopsies.",
-  keywords: ["quant finance", "derivatives", "machine learning", "backtesting", "open source"],
+    "Free open-source quantitative finance university: 20 deep lessons, 12 live numerical labs, model dossiers, research pipeline, and backtest cemetery. No profit promises.",
+  keywords: ["quant finance", "open source", "derivatives", "backtesting", "black scholes", "free syllabus"],
   openGraph: {
-    title: "No Free Alpha — The Independent Quant Review",
-    description: "Models, markets, live laboratories, and the beautiful ways research can lie to you.",
+    title: "No Free Alpha — Free Open-Source Quant Syllabus",
+    description: "20 deep lessons · 12 live labs · model dossiers · research pipeline · failure autopsies. Built in public.",
     type: "website",
-    images: [{ url: "/og.png", width: 1735, height: 909, alt: "NO FREE ALPHA — The Independent Quant Review" }],
+    images: [{ url: "/og.png", width: 1735, height: 909, alt: "NO FREE ALPHA" }],
   },
-  twitter: { card: "summary_large_image", images: ["/og.png"] },
+  twitter: {
+    card: "summary_large_image",
+    title: "No Free Alpha — Free Open-Source Quant Syllabus",
+    description: "No free alpha. Free syllabus though. 20 lessons, live labs, cemetery of bad backtests.",
+    images: ["/og.png"],
+  },
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
 };
 

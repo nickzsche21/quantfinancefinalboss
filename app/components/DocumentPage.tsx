@@ -4,10 +4,18 @@ import Link from "next/link";
 export function DocumentPage({ eyebrow, title, children }: { eyebrow: string; title: string; children: ReactNode }) {
   return (
     <main className="document-page">
-      <Link className="document-brand" href="/"><span>N∅</span> NO FREE ALPHA</Link>
+      <Link className="document-brand" href="/">
+        <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#0B0A09" />
+          <circle cx="32" cy="32" r="22" fill="none" stroke="#E4B84A" strokeWidth="1.5" />
+          <circle cx="32" cy="32" r="14" fill="none" stroke="#D41448" strokeWidth="2.2" />
+          <path d="M20 32h24" stroke="#D41448" strokeWidth="2.6" />
+        </svg>
+        NO FREE ALPHA
+      </Link>
       <header><small>{eyebrow}</small><h1>{title}</h1></header>
       <article>{children}</article>
-      <footer><Link href="/">← Return to terminal</Link><span>Educational use only · Not investment advice</span></footer>
+      <footer><Link href="/">← Return to syllabus</Link><span>Educational use only · Not investment advice · Free open source</span></footer>
     </main>
   );
 }

@@ -1,8 +1,20 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { graves, lessons, models, pipeline, quests, sources, tools } from "../lib/content";
+import { freeResources, graves, lessons, models, pipeline, quests, SITE, sources, tools, tracks } from "../lib/content";
 import { LabPanel } from "./LabPanel";
+
+function BrandMark({ size = 36 }: { size?: number }) {
+  return (
+    <svg className="brand-logo" width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
+      <rect width="64" height="64" rx="14" fill="currentColor" className="brand-logo-bg" />
+      <circle cx="32" cy="32" r="22" fill="none" stroke="var(--gold-bright)" strokeWidth="1.5" opacity="0.95" />
+      <circle cx="32" cy="32" r="14" fill="none" stroke="var(--wine-hot)" strokeWidth="2.2" />
+      <path d="M20 32h24" stroke="var(--wine-hot)" strokeWidth="2.6" strokeLinecap="square" />
+      <path d="M32 17v5.5M32 41.5V47" stroke="var(--gold-bright)" strokeWidth="1.5" strokeLinecap="square" opacity="0.85" />
+    </svg>
+  );
+}
 
 type View = "terminal" | "curriculum" | "models" | "stack" | "pipeline" | "cemetery" | "roadmap";
 type Selection =
@@ -86,12 +98,12 @@ export function TerminalApp() {
     <div className="terminal-shell">
       <header className="topbar">
         <button className="brand" onClick={() => navigate("terminal")} aria-label="No Free Alpha front page">
-          <span className="brand-mark">N∅</span>
-          <span className="brand-type">NO FREE ALPHA<small>THE OPEN QUANT REVIEW</small></span>
+          <BrandMark />
+          <span className="brand-type">NO FREE ALPHA<small>FREE OPEN-SOURCE SYLLABUS</small></span>
         </button>
         <div className="global-search">
           <span aria-hidden="true">⌕</span>
-          <input ref={searchRef} aria-label="Search lessons, models, and tools" placeholder="Search the review…" value={query} onChange={(event) => setQuery(event.target.value)} />
+          <input ref={searchRef} aria-label="Search lessons, models, and tools" placeholder="Search lessons, models, tools…" value={query} onChange={(event) => setQuery(event.target.value)} />
           <kbd>⌘ K</kbd>
           {query && (
             <div className="search-results">
@@ -101,13 +113,17 @@ export function TerminalApp() {
                   <span>{item.type}</span><strong>{item.name}</strong><small>{item.meta}</small>
                 </button>
               ))}
-              {!searchResults.length && <p>No grounded record found. Try “Heston” or “backtest”.</p>}
+              {!searchResults.length && <p>No grounded record found. Try “Heston” or “leakage”.</p>}
             </div>
           )}
         </div>
-        <button className="progress-state" onClick={() => navigate("curriculum")} aria-label={`${completedLessons.length} of 20 lessons complete`}>
-          <span>{completedLessons.length}<i>/20</i></span><small>LESSONS COMPLETE</small>
-        </button>
+        <div className="topbar-actions">
+          <a className="ghost-cta" href={SITE.github} target="_blank" rel="noreferrer">★ GitHub</a>
+          <a className="ghost-cta ghost-cta-hot" href={SITE.twitterShare} target="_blank" rel="noreferrer">Share ↗</a>
+          <button className="progress-state" onClick={() => navigate("curriculum")} aria-label={`${completedLessons.length} of 20 lessons complete`}>
+            <span>{completedLessons.length}<i>/20</i></span><small>LESSONS</small>
+          </button>
+        </div>
       </header>
 
       <aside className="sidebar">
@@ -156,11 +172,11 @@ function TerminalHome({ onNavigate, completed }: { onNavigate: (view: View) => v
 
         <article className="hero-copy">
           <div className="hero-masthead">
-            <span className="eyebrow">THE INDEPENDENT QUANT REVIEW</span>
-            <span className="hero-folio">FOLIO 001 · OPEN · NOT ADVICE</span>
+            <span className="eyebrow">FREE · OPEN SOURCE · CITED</span>
+            <span className="hero-folio">VOL. 01 · NOT INVESTMENT ADVICE</span>
           </div>
 
-          <p className="hero-kicker">A SYLLABUS FOR PEOPLE WHO DISTRUST PRETTY CURVES</p>
+          <p className="hero-kicker">NO FREE ALPHA. FREE SYLLABUS THOUGH.</p>
 
           <h1>
             <span className="hero-line">No Free</span>
@@ -169,20 +185,23 @@ function TerminalHome({ onNavigate, completed }: { onNavigate: (view: View) => v
 
           <div className="hero-lower">
             <p className="hero-dek">
-              The serious guide to models, markets, and the <i>beautiful ways</i> research can lie to you.
+              A premium open-source quant university: <strong>20 deep lessons</strong>, <strong>12 live labs</strong>, model dossiers, a research pipeline, and a cemetery of backtests that lied beautifully.
             </p>
             <div className="hero-actions">
               <button className="primary-cta" onClick={() => onNavigate("curriculum")}>
-                READ THE CURRICULUM <span>↗</span>
+                START LEARNING <span>↗</span>
               </button>
-              <button className="text-cta" onClick={() => onNavigate("roadmap")}>
-                BUILD YOUR EDITION <span>→</span>
-              </button>
+              <a className="text-cta" href={SITE.github} target="_blank" rel="noreferrer">
+                STAR ON GITHUB <span>→</span>
+              </a>
+              <a className="text-cta" href={SITE.twitterShare} target="_blank" rel="noreferrer">
+                SHARE ON X <span>↗</span>
+              </a>
             </div>
             <div className="hero-proof">
-              <span>OPEN SOURCE</span>
-              <span>CITED</span>
-              <span>INTERACTIVE</span>
+              <span>MIT-FRIENDLY EDUCATION</span>
+              <span>NO PAYWALL</span>
+              <span>NO GURU COURSE</span>
               <span>{completed}/20 COMPLETE</span>
             </div>
           </div>
@@ -250,16 +269,108 @@ function TerminalHome({ onNavigate, completed }: { onNavigate: (view: View) => v
         </div>
       </section>
 
+      <section className="learn-dense">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">WHAT YOU ACTUALLY LEARN</span>
+            <h2>Not a link dump.<br /><em>A working desk.</em></h2>
+          </div>
+          <p>Each lesson carries objectives, formulas, a worked example, failure modes, and further reading—then you can open a lab or a cemetery case.</p>
+        </div>
+        <div className="track-grid">
+          {tracks.map((track) => {
+            const count = lessons.filter((lesson) => lesson.track === track.id).length;
+            return (
+              <button key={track.id} onClick={() => onNavigate("curriculum")}>
+                <span>{String(count).padStart(2, "0")} LESSONS</span>
+                <strong>{track.id}</strong>
+                <p>{track.blurb}</p>
+              </button>
+            );
+          })}
+        </div>
+        <div className="lesson-preview">
+          <div className="lesson-preview-head">
+            <span>OPEN ANY LESSON</span>
+            <button onClick={() => onNavigate("curriculum")}>FULL CURRICULUM ↗</button>
+          </div>
+          {lessons.slice(0, 6).map((lesson) => (
+            <button key={lesson.index} className="lesson-preview-row" onClick={() => onNavigate("curriculum")}>
+              <span>{lesson.index}</span>
+              <strong>{lesson.title}</strong>
+              <em>{lesson.level}</em>
+              <b>{lesson.minutes}m · {lesson.keyTerms.length} terms · example</b>
+            </button>
+          ))}
+        </div>
+      </section>
+
       <LabPanel />
+
+      <section className="resource-strip">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">FREE STACK · R/QUANT ENERGY</span>
+            <h2>Study what people<br /><em>actually recommend.</em></h2>
+          </div>
+          <p>Hand-picked free and open resources—courses, books, engines—so this site is a syllabus, not a dead-end landing page.</p>
+        </div>
+        <div className="resource-grid">
+          {freeResources.map((item) => (
+            <a key={item.title} href={item.url} target="_blank" rel="noreferrer">
+              <span>{item.kind}</span>
+              <strong>{item.title}</strong>
+              <p>{item.note}</p>
+              <b>OPEN ↗</b>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="oss-banner">
+        <div>
+          <span className="eyebrow">BUILT TO BE SHARED</span>
+          <h2>Star it. Fork it.<br /><em>Roast the backtests.</em></h2>
+          <p>100% free educational product. No paywall, no “alpha group,” no affiliate strategy course. If it helps you, send it to someone who still worships a smooth equity curve.</p>
+        </div>
+        <div className="oss-actions">
+          <a className="primary-cta" href={SITE.github} target="_blank" rel="noreferrer">GITHUB REPO <span>★</span></a>
+          <a className="primary-cta primary-cta-outline" href={SITE.twitterShare} target="_blank" rel="noreferrer">TWEET THIS <span>↗</span></a>
+          <button className="text-cta" onClick={() => onNavigate("cemetery")}>VISIT THE CEMETERY <span>→</span></button>
+        </div>
+      </section>
 
       <section className="source-ledger">
         <div className="section-heading compact"><div><span className="eyebrow">THE SOURCE LEDGER</span><h2>Built in public.<br /><em>Edited with receipts.</em></h2></div><button onClick={() => onNavigate("stack")}>EXPLORE THE STACK <span>↗</span></button></div>
         <div className="ledger-grid">
-          {sources.map((source) => <article key={source.id}><span>{source.surface}</span><h3>{source.repo}</h3><p>{source.license}</p><div><code>{source.branch}@{source.commit}</code><a href={`https://github.com/${source.repo}/tree/${source.commit}`} target="_blank" rel="noreferrer">SOURCE ↗</a></div></article>)}
+          {sources.map((source) => (
+            <article key={source.id}>
+              <span>{source.surface}</span>
+              <h3>{source.repo}</h3>
+              <p>{source.why}</p>
+              <p className="ledger-license">{source.license}</p>
+              <div>
+                <code>{source.branch}@{source.commit}</code>
+                <a href={`https://github.com/${source.repo}/tree/${source.commit}`} target="_blank" rel="noreferrer">SOURCE ↗</a>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
-      <footer className="site-footer"><strong>NO FREE ALPHA</strong><span>Independent education · Not investment advice · No affiliation or endorsement</span><nav><a href="/sources">Sources</a><a href="/legal/disclaimer">Disclaimer</a><a href="/legal/privacy">Privacy</a></nav></footer>
+      <footer className="site-footer">
+        <div className="footer-brand">
+          <BrandMark size={28} />
+          <strong>NO FREE ALPHA</strong>
+        </div>
+        <span>Independent education · Not investment advice · Free & open source</span>
+        <nav>
+          <a href={SITE.github} target="_blank" rel="noreferrer">GitHub</a>
+          <a href="/sources">Sources</a>
+          <a href="/legal/disclaimer">Disclaimer</a>
+          <a href="/legal/privacy">Privacy</a>
+        </nav>
+      </footer>
     </>
   );
 }
@@ -269,7 +380,35 @@ function PageIntro({ index, kicker, title, copy }: { index: string; kicker: stri
 }
 
 function Curriculum({ completed, onOpen }: { completed: string[]; onOpen: (id: string) => void }) {
-  return <div className="page-view"><PageIntro index="02" kicker="CURRICULUM" title="Learn the machinery, not the mythology." copy="Twenty edited lessons from compounding to portfolio construction. Every lesson opens into a focused reader with practice, sources, and progress tracking." /><div className="curriculum-progress"><span><b>{completed.length}</b> of 20 complete</span><i style={{ width: `${(completed.length / lessons.length) * 100}%` }} /></div><div className="lesson-table"><div className="table-head"><span>NO.</span><span>LESSON</span><span>TRACK</span><span>LEVEL</span><span>STATUS</span></div>{lessons.map((lesson) => <button className={`lesson-row ${completed.includes(lesson.index) ? "complete" : ""}`} key={lesson.index} onClick={() => onOpen(lesson.index)}><span>{lesson.index}</span><span className="lesson-title"><strong>{lesson.title}</strong><small>SOURCE · {lesson.source}</small></span><span>{lesson.track}</span><span className={`level ${lesson.level.toLowerCase()}`}>{lesson.level}</span><span>{completed.includes(lesson.index) ? "READ ✓" : `${lesson.minutes}m ↗`}</span></button>)}</div></div>;
+  return (
+    <div className="page-view">
+      <PageIntro
+        index="02"
+        kicker="CURRICULUM"
+        title="Learn the machinery, not the mythology."
+        copy="Twenty deep lessons: objectives, intuition, formulas, worked examples, pitfalls, and further reading. Open any row—this is the product."
+      />
+      <div className="curriculum-progress">
+        <span><b>{completed.length}</b> of {lessons.length} complete · ~{lessons.reduce((sum, lesson) => sum + lesson.minutes, 0)} min total study</span>
+        <i style={{ width: `${(completed.length / lessons.length) * 100}%` }} />
+      </div>
+      <div className="lesson-table">
+        <div className="table-head"><span>NO.</span><span>LESSON</span><span>TRACK</span><span>LEVEL</span><span>STATUS</span></div>
+        {lessons.map((lesson) => (
+          <button className={`lesson-row ${completed.includes(lesson.index) ? "complete" : ""}`} key={lesson.index} onClick={() => onOpen(lesson.index)}>
+            <span>{lesson.index}</span>
+            <span className="lesson-title">
+              <strong>{lesson.title}</strong>
+              <small>{lesson.keyTerms.length} terms · worked example · {lesson.pitfalls.length} pitfalls{lesson.labHint ? " · lab" : ""} · {lesson.source}</small>
+            </span>
+            <span>{lesson.track}</span>
+            <span className={`level ${lesson.level.toLowerCase()}`}>{lesson.level}</span>
+            <span>{completed.includes(lesson.index) ? "READ ✓" : `${lesson.minutes}m ↗`}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function ModelZoo({ onOpen }: { onOpen: (id: string) => void }) {
@@ -280,7 +419,24 @@ function QuantStack() {
   const [filter, setFilter] = useState("All");
   const categories = ["All", ...Array.from(new Set(tools.map((tool) => tool.workflow)))];
   const visible = filter === "All" ? tools : tools.filter((tool) => tool.workflow === filter);
-  return <div className="page-view"><PageIntro index="04" kicker="QUANT STACK" title="The tools, minus the link-dump entropy." copy="A curated working index derived from Awesome Quant. Filter by workflow and open any project at its source." /><div className="filter-row">{categories.map((category) => <button className={filter === category ? "active" : ""} key={category} onClick={() => setFilter(category)}>{category}</button>)}</div><div className="tool-table"><div><span>PROJECT</span><span>WORKFLOW</span><span>LANGUAGE</span><span>ACCESS</span></div>{visible.map((tool) => <a href={tool.url} target="_blank" rel="noreferrer" key={tool.name}><strong>{tool.name}</strong><span>{tool.workflow}</span><span>{tool.language}</span><span>{tool.access} ↗</span></a>)}</div><p className="provenance-note">wilsonfreitas/awesome-quant @ 9289247 · human review required where licensing is unknown.</p></div>;
+  return (
+    <div className="page-view">
+      <PageIntro index="04" kicker="QUANT STACK" title="The tools, minus the link-dump entropy." copy="A curated working index with short why-it-matters notes. Filter by workflow and open any project at its source." />
+      <div className="filter-row">{categories.map((category) => <button className={filter === category ? "active" : ""} key={category} onClick={() => setFilter(category)}>{category}</button>)}</div>
+      <div className="tool-table tool-table-rich">
+        <div><span>PROJECT</span><span>WORKFLOW</span><span>LANGUAGE</span><span>ACCESS</span></div>
+        {visible.map((tool) => (
+          <a href={tool.url} target="_blank" rel="noreferrer" key={tool.name}>
+            <span className="tool-main"><strong>{tool.name}</strong><small>{tool.blurb}</small></span>
+            <span>{tool.workflow}</span>
+            <span>{tool.language}</span>
+            <span>{tool.access} ↗</span>
+          </a>
+        ))}
+      </div>
+      <p className="provenance-note">Curated from wilsonfreitas/awesome-quant @ 9289247 + desk picks · verify licenses before production use.</p>
+    </div>
+  );
 }
 
 function ResearchPipeline({ onOpen }: { onOpen: (id: string) => void }) {
@@ -323,10 +479,141 @@ function ContentReader({ selection, completedLessons, onToggleLesson, onClose, o
     <div className="reader-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
       <article className="content-reader" role="dialog" aria-modal="true" aria-labelledby="reader-title">
         <header className="reader-bar"><span>NO FREE ALPHA / READER</span><button ref={closeRef} onClick={onClose} aria-label="Close reader">CLOSE <b>×</b></button></header>
-        {lesson && <><div className="reader-hero"><span>LESSON {lesson.index} · {lesson.track}</span><h2 id="reader-title">{lesson.title}</h2><p>{lesson.premise}</p><div><i className={`level ${lesson.level.toLowerCase()}`}>{lesson.level}</i><small>{lesson.minutes} MIN READ</small></div></div><div className="reader-content"><section><span>LEARNING OBJECTIVES</span><ul>{lesson.objectives.map((item) => <li key={item}>{item}</li>)}</ul></section><section><span>THE IDEA</span><p>{lesson.explanation}</p></section><blockquote><span>PRACTICE</span>{lesson.exercise}</blockquote><section><span>TAKEAWAY</span><p>{lesson.takeaway}</p></section><footer><small>SOURCE FAMILY</small><code>{lesson.source}</code></footer></div><button className={`reader-complete ${completedLessons.includes(lesson.index) ? "complete" : ""}`} onClick={() => onToggleLesson(lesson.index)}>{completedLessons.includes(lesson.index) ? "LESSON COMPLETE ✓" : "MARK LESSON COMPLETE"}</button>{nextLesson && <button className="reader-next" onClick={() => onSelect({ kind: "lesson", id: nextLesson.index })}><span>NEXT LESSON · {nextLesson.index}</span><strong>{nextLesson.title} ↗</strong></button>}</>}
-        {model && <><div className="reader-hero"><span>MODEL DOSSIER · {model.family}</span><h2 id="reader-title">{model.name}</h2><p>{model.note}</p><div><i className={model.accent}>{model.status}</i><small>ASSUMPTIONS EXPOSED</small></div></div><div className="reader-content"><section><span>CORE EQUATION</span><pre>{model.equation}</pre></section><section><span>INTUITION</span><p>{model.intuition}</p></section><section><span>MODEL CONTRACT</span><ul>{model.assumptions.map((item) => <li key={item}>{item}</li>)}</ul></section><blockquote className="failure"><span>WHERE IT BREAKS</span>{model.failure}</blockquote></div></>}
-        {stage && <><div className="reader-hero"><span>RESEARCH GATE · {stage.index}</span><h2 id="reader-title">{stage.name}</h2><p>{stage.copy}</p></div><div className="reader-content"><section><span>EXIT CHECKLIST</span><ol>{stage.checklist.map((item) => <li key={item}>{item}</li>)}</ol></section><blockquote className="failure"><span>FAILURE THIS GATE CATCHES</span>{stage.failure}</blockquote><section><span>SHIP RULE</span><p>Do not advance because the result looks promising. Advance only when every item above can be reproduced and defended.</p></section></div></>}
-        {grave && <><div className="reader-hero grave-reader"><span>ALPHA CEMETERY · CASE FILE</span><h2 id="reader-title">{grave.name}</h2><p>{grave.note}</p></div><div className="reader-content autopsy-grid"><section><span>01 / SYMPTOM</span><p>{grave.symptom}</p></section><section><span>02 / DIAGNOSIS</span><p>{grave.diagnosis}</p></section><section><span>03 / REPAIR</span><p>{grave.repair}</p></section><blockquote><span>04 / THE TEST</span>{grave.test}</blockquote></div></>}
+        {lesson && (
+          <>
+            <div className="reader-hero">
+              <span>LESSON {lesson.index} · {lesson.track}</span>
+              <h2 id="reader-title">{lesson.title}</h2>
+              <p>{lesson.premise}</p>
+              <div>
+                <i className={`level ${lesson.level.toLowerCase()}`}>{lesson.level}</i>
+                <small>{lesson.minutes} MIN · DEEP READ</small>
+              </div>
+            </div>
+            <div className="reader-content">
+              <section>
+                <span>LEARNING OBJECTIVES</span>
+                <ul>{lesson.objectives.map((item) => <li key={item}>{item}</li>)}</ul>
+              </section>
+              <section>
+                <span>THE IDEA</span>
+                {lesson.explanation.split("\n\n").map((paragraph) => <p key={paragraph.slice(0, 24)}>{paragraph}</p>)}
+              </section>
+              {lesson.formula && (
+                <section>
+                  <span>FORMULA</span>
+                  <pre>{lesson.formula}</pre>
+                </section>
+              )}
+              <section>
+                <span>KEY TERMS</span>
+                <dl className="term-list">
+                  {lesson.keyTerms.map((item) => (
+                    <div key={item.term}>
+                      <dt>{item.term}</dt>
+                      <dd>{item.def}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </section>
+              <section>
+                <span>WORKED EXAMPLE</span>
+                <p>{lesson.workedExample}</p>
+              </section>
+              <blockquote>
+                <span>PRACTICE DRILL</span>
+                {lesson.exercise}
+              </blockquote>
+              <section>
+                <span>FAILURE MODES</span>
+                <ul>{lesson.pitfalls.map((item) => <li key={item}>{item}</li>)}</ul>
+              </section>
+              <section>
+                <span>TAKEAWAY</span>
+                <p className="takeaway-line">{lesson.takeaway}</p>
+              </section>
+              <section>
+                <span>FURTHER READING</span>
+                <ul className="reading-list">
+                  {lesson.furtherReading.map((item) => (
+                    <li key={item.title}><strong>{item.title}</strong> — {item.note}</li>
+                  ))}
+                </ul>
+              </section>
+              <footer>
+                <small>SOURCE FAMILY</small>
+                <code>{lesson.source}</code>
+                {lesson.labHint && <small className="lab-chip">LAB AVAILABLE · {lesson.labHint}</small>}
+              </footer>
+            </div>
+            <button className={`reader-complete ${completedLessons.includes(lesson.index) ? "complete" : ""}`} onClick={() => onToggleLesson(lesson.index)}>
+              {completedLessons.includes(lesson.index) ? "LESSON COMPLETE ✓" : "MARK LESSON COMPLETE"}
+            </button>
+            {nextLesson && (
+              <button className="reader-next" onClick={() => onSelect({ kind: "lesson", id: nextLesson.index })}>
+                <span>NEXT LESSON · {nextLesson.index}</span>
+                <strong>{nextLesson.title} ↗</strong>
+              </button>
+            )}
+          </>
+        )}
+        {model && (
+          <>
+            <div className="reader-hero">
+              <span>MODEL DOSSIER · {model.family}</span>
+              <h2 id="reader-title">{model.name}</h2>
+              <p>{model.note}</p>
+              <div><i className={model.accent}>{model.status}</i><small>ASSUMPTIONS EXPOSED</small></div>
+            </div>
+            <div className="reader-content">
+              <section><span>CORE EQUATION</span><pre>{model.equation}</pre></section>
+              <section><span>INTUITION</span><p>{model.intuition}</p></section>
+              <section>
+                <span>PARAMETERS</span>
+                <dl className="term-list">
+                  {model.parameters.map((item) => (
+                    <div key={item.name}><dt>{item.name}</dt><dd>{item.meaning}</dd></div>
+                  ))}
+                </dl>
+              </section>
+              <section><span>WHEN TO USE</span><p>{model.whenToUse}</p></section>
+              <section><span>WORKED EXAMPLE</span><p>{model.workedExample}</p></section>
+              <section><span>MODEL CONTRACT</span><ul>{model.assumptions.map((item) => <li key={item}>{item}</li>)}</ul></section>
+              <blockquote className="failure"><span>WHERE IT BREAKS</span>{model.failure}</blockquote>
+            </div>
+          </>
+        )}
+        {stage && (
+          <>
+            <div className="reader-hero">
+              <span>RESEARCH GATE · {stage.index}</span>
+              <h2 id="reader-title">{stage.name}</h2>
+              <p>{stage.copy}</p>
+            </div>
+            <div className="reader-content">
+              <section><span>WHY THIS GATE EXISTS</span><p>{stage.deepDive}</p></section>
+              <section><span>EXIT CHECKLIST</span><ol>{stage.checklist.map((item) => <li key={item}>{item}</li>)}</ol></section>
+              <blockquote className="failure"><span>FAILURE THIS GATE CATCHES</span>{stage.failure}</blockquote>
+              <section><span>SHIP RULE</span><p>Do not advance because the result looks promising. Advance only when every item above can be reproduced and defended.</p></section>
+            </div>
+          </>
+        )}
+        {grave && (
+          <>
+            <div className="reader-hero grave-reader">
+              <span>ALPHA CEMETERY · CASE FILE</span>
+              <h2 id="reader-title">{grave.name}</h2>
+              <p>{grave.note}</p>
+            </div>
+            <div className="reader-content autopsy-grid">
+              <section><span>01 / SYMPTOM</span><p>{grave.symptom}</p></section>
+              <section><span>02 / DIAGNOSIS</span><p>{grave.diagnosis}</p></section>
+              <section><span>03 / REPAIR</span><p>{grave.repair}</p></section>
+              <blockquote><span>04 / THE TEST</span>{grave.test}</blockquote>
+              <section><span>05 / LESSON</span><p className="takeaway-line">{grave.lesson}</p></section>
+            </div>
+          </>
+        )}
       </article>
     </div>
   );
