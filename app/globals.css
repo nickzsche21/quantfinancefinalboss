@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  /* DARK TERMINAL LUXE — neon signal identity */
+  /* DARK TERMINAL LUXE ï¿½ neon signal identity */
   --ink: #eef2f7;
   --black: #03040a;
   --paper: #05070f;
@@ -1242,8 +1242,21 @@ code, kbd, .eyebrow, .field span, .table-head, .page-intro > span, .hero-folio, 
 }
 
 /* -------------------------------------------
-   HARD IDENTITY OVERRIDE — dark neon product
+   HARD IDENTITY OVERRIDE - dark neon product
    ------------------------------------------- */
+.build-beacon {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  padding: 12px 16px;
+  text-align: center;
+  background: #ff3d71 !important;
+  color: #ffffff !important;
+  font: 700 12px/1.35 var(--mono), ui-monospace, monospace !important;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-bottom: 4px solid #00f5a0 !important;
+}
 html, body { background: #05070f !important; color: #eef2f7 !important; }
 .terminal-shell { background: #05070f; }
 .topbar {

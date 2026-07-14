@@ -96,6 +96,9 @@ export function TerminalApp() {
 
   return (
     <div className="terminal-shell">
+      <div className="build-beacon" role="status">
+        DARK NEON BUILD · v2026.07.14 · if you see cream paper, you are on the wrong URL or a cached tab
+      </div>
       <header className="topbar">
         <button className="brand" onClick={() => navigate("terminal")} aria-label="No Free Alpha front page">
           <BrandMark />
