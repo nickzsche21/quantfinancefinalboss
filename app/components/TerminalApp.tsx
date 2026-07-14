@@ -147,42 +147,106 @@ function TerminalHome({ onNavigate, completed }: { onNavigate: (view: View) => v
       </div>
 
       <section className="hero">
+        <div className="hero-spine" aria-hidden="true">
+          <span>VOL. 01</span>
+          <span>ISSUE 01</span>
+          <span>JULY 2026</span>
+          <span>N∅</span>
+        </div>
+
         <article className="hero-copy">
-          <span className="hero-watermark" aria-hidden="true">∅</span>
-          <span className="eyebrow">THE INDEPENDENT QUANT REVIEW · ISSUE 01</span>
-          <h1>No Free<br /><em>Alpha.</em></h1>
-          <p className="hero-dek">The serious guide to models, markets, and the <i>beautiful ways</i> research can lie to you.</p>
-          <div className="hero-actions">
-            <button className="primary-cta" onClick={() => onNavigate("curriculum")}>READ THE CURRICULUM <span>↗</span></button>
-            <button className="text-cta" onClick={() => onNavigate("roadmap")}>BUILD YOUR EDITION <span>→</span></button>
+          <div className="hero-masthead">
+            <span className="eyebrow">THE INDEPENDENT QUANT REVIEW</span>
+            <span className="hero-folio">FOLIO 001 · OPEN · NOT ADVICE</span>
           </div>
-          <div className="hero-proof"><span>OPEN SOURCE</span><span>CITED</span><span>INTERACTIVE</span><span>{completed}/20 COMPLETE</span></div>
+
+          <p className="hero-kicker">A SYLLABUS FOR PEOPLE WHO DISTRUST PRETTY CURVES</p>
+
+          <h1>
+            <span className="hero-line">No Free</span>
+            <span className="hero-line hero-line-accent">Alpha<span className="hero-period">.</span></span>
+          </h1>
+
+          <div className="hero-lower">
+            <p className="hero-dek">
+              The serious guide to models, markets, and the <i>beautiful ways</i> research can lie to you.
+            </p>
+            <div className="hero-actions">
+              <button className="primary-cta" onClick={() => onNavigate("curriculum")}>
+                READ THE CURRICULUM <span>↗</span>
+              </button>
+              <button className="text-cta" onClick={() => onNavigate("roadmap")}>
+                BUILD YOUR EDITION <span>→</span>
+              </button>
+            </div>
+            <div className="hero-proof">
+              <span>OPEN SOURCE</span>
+              <span>CITED</span>
+              <span>INTERACTIVE</span>
+              <span>{completed}/20 COMPLETE</span>
+            </div>
+          </div>
+
+          <span className="hero-giant" aria-hidden="true">∅</span>
+          <span className="hero-slash" aria-hidden="true" />
         </article>
+
         <aside className="cover-story">
+          <div className="cover-chart" aria-hidden="true">
+            {[42, 48, 45, 55, 52, 68, 61, 74, 58, 82, 70, 88, 64, 91, 55, 78, 40, 66, 32, 48, 22, 38, 18, 28].map((h, i) => (
+              <i key={i} style={{ height: `${h}%` }} />
+            ))}
+          </div>
           <span className="cover-stamp" aria-hidden="true">VOID OF<br />GUARANTEES</span>
-          <div className="cover-kicker"><span>FEATURED ESSAY</span><b>8 MIN READ</b></div>
+          <div className="cover-kicker"><span>FEATURED AUTOPSY</span><b>CASE 01 · 8 MIN</b></div>
           <p className="cover-number">01</p>
-          <h2>Beautiful backtests have ugly secrets.</h2>
-          <p>A field guide to leakage, free fills, dead securities, and every other flattering lie hiding inside a smooth equity curve.</p>
+          <h2>Beautiful backtests have <em>ugly</em> secrets.</h2>
+          <p>Leakage. Free fills. Dead securities. Every flattering lie hiding inside a smooth equity curve.</p>
           <button onClick={() => onNavigate("cemetery")}>READ THE AUTOPSIES <span>↗</span></button>
-          <div className="cover-footer"><span>RESEARCH INTEGRITY</span><strong>94<small>/100</small></strong><i>After costs + bias checks</i></div>
+          <div className="cover-footer">
+            <span>RESEARCH INTEGRITY</span>
+            <strong>94<small>/100</small></strong>
+            <i>After costs + bias checks</i>
+          </div>
         </aside>
       </section>
 
       <section className="manifest-strip" aria-label="Publication summary">
-        <p><strong>04</strong><span>Source repositories</span></p>
-        <p><strong>20</strong><span>Editorial lessons</span></p>
-        <p><strong>07</strong><span>Model dossiers</span></p>
-        <p><strong>12</strong><span>Live laboratories</span></p>
-        <p className="manifest-zero"><strong>00</strong><span>Profit promises</span></p>
+        <p><strong data-label="REPOS">04</strong><span>Source repositories</span></p>
+        <p><strong data-label="LESSONS">20</strong><span>Editorial lessons</span></p>
+        <p><strong data-label="MODELS">07</strong><span>Model dossiers</span></p>
+        <p><strong data-label="LABS">12</strong><span>Live laboratories</span></p>
+        <p className="manifest-zero"><strong data-label="PROMISES">00</strong><span>Profit promises</span></p>
       </section>
 
       <section className="editorial-paths">
-        <div className="paths-heading"><span>CHOOSE YOUR DESK</span><h2>Study the market from the angle that <em>matters.</em></h2><p>Each desk combines reading, models, live experiments, and explicit failure checks.</p></div>
+        <div className="paths-heading">
+          <span>CHOOSE YOUR DESK</span>
+          <h2>Study the market from the angle that <em>matters.</em></h2>
+          <p>Each desk combines reading, models, live experiments, and explicit failure checks. No hype desk. No guru track.</p>
+        </div>
         <div className="path-grid">
-          <button onClick={() => onNavigate("curriculum")}><span>01 / DERIVATIVES</span><strong>Price the contract.<br />Question the model.</strong><p>Probability, stochastic processes, options, Greeks, and numerical pricing.</p><b>ENTER DESK ↗</b></button>
-          <button onClick={() => onNavigate("pipeline")}><span>02 / RESEARCH</span><strong>Turn an idea into<br />an honest test.</strong><p>Point-in-time data, validation, backtests, costs, portfolios, and risk.</p><b>ENTER DESK ↗</b></button>
-          <button onClick={() => onNavigate("cemetery")}><span>03 / FAILURE</span><strong>Learn from the<br />strategies that died.</strong><p>Six interactive autopsies for the mistakes most likely to survive peer review.</p><b>ENTER DESK ↗</b></button>
+          <button onClick={() => onNavigate("curriculum")}>
+            <span className="path-index">01</span>
+            <span>DERIVATIVES</span>
+            <strong>Price the contract.<br />Question the model.</strong>
+            <p>Probability, stochastic processes, options, Greeks, and numerical pricing.</p>
+            <b>ENTER DESK ↗</b>
+          </button>
+          <button onClick={() => onNavigate("pipeline")}>
+            <span className="path-index">02</span>
+            <span>RESEARCH</span>
+            <strong>Turn an idea into<br />an honest test.</strong>
+            <p>Point-in-time data, validation, backtests, costs, portfolios, and risk.</p>
+            <b>ENTER DESK ↗</b>
+          </button>
+          <button className="path-danger" onClick={() => onNavigate("cemetery")}>
+            <span className="path-index">03</span>
+            <span>FAILURE</span>
+            <strong>Learn from the<br />strategies that died.</strong>
+            <p>Six interactive autopsies for the mistakes most likely to survive peer review.</p>
+            <b>ENTER CEMETERY ↗</b>
+          </button>
         </div>
       </section>
 
